@@ -1,0 +1,14 @@
+.nfs*
+*.ipynb
+*.pyc
+.dumbo.json
+.DS_Store
+.*.swp
+*.pth
+**/__pycache__/**
+*.tmp
+*.pkl
+.vscode
+data/
+work_dirs/
+track_results/
