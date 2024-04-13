@@ -27,7 +27,7 @@ from modify_mmdet_utils import train_detector
 
 def parse_args():
     parser = argparse.ArgumentParser(description='Train a detector')
-    parser.add_argument('--config', help='train config file path', default='./configs/ours.py')
+    parser.add_argument('--config', help='train config file path', default='./configs/ours+br+loss+nofam.py')
     parser.add_argument('--work-dir', help='the dir to save logs and models')
     parser.add_argument(
         '--resume-from', help='the checkpoint file to resume from')

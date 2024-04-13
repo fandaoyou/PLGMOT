@@ -1,11 +1,11 @@
 import numpy as np
 from mmcv.runner import auto_fp16
-from mmdet.models import DETECTORS, TwoStageDetector, RPNHead
+from mmdet.models import DETECTORS, TwoStageDetector
 from mmdet.core import bbox2roi, bbox2result
 
 from .modules.modulators import RPN_Modulator, RCNN_Modulator
 
-RPNHead
+
 @DETECTORS.register_module()
 class BaseModel(TwoStageDetector):
     def __init__(self, backbone, rpn_head, roi_head, train_cfg,

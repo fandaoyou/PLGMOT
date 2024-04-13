@@ -213,3 +213,38 @@ class PLGMOT(BaseModel):
             return self.forward_train(img_z, img_x_list, img_meta_z, img_meta_x_list, **kwargs)
         else:
             return self.forward_test(img_z, img_x_list, img_meta_z, img_meta_x_list, **kwargs)
+
+    def forward_dummy(self, img):
+        """Used for computing network flops.
+
+        See `mmdetection/tools/analysis_tools/get_flops.py`
+        """
+        outs = ()
+
+        # backbone
+        z = self.extract_feat(img)
+        x = self.extract_feat(img)
+        box = torch.tensor([[0, 0, 10, 10]], dtype=torch.float32).cuda()
+        rois_z = bbox2roi([box])
+        bbox_feats_z = self.roi_head.bbox_roi_extractor(z[:self.roi_head.bbox_roi_extractor.num_inputs], rois_z)
+        rpn_feats = self.rpn_modulator(x, bbox_feats_z)
+
+        # rpn
+        rpn_feats = self.rpn_modulator(x, bbox_feats_z)
+        rpn_outs = self.rpn_head(rpn_feats)
+
+        proposals = torch.randn(1000, 4).to(img.device)
+
+        # roi_head
+
+        rois_x_i = bbox2roi([proposals])
+        bbox_feats_x_i = self.roi_head.bbox_roi_extractor(
+            x[:self.roi_head.bbox_roi_extractor.num_inputs], rois_x_i)
+
+        bbox_feats = self.rcnn_modulator(bbox_feats_z, bbox_feats_x_i)
+
+        cls_score, bbox_pred = self.roi_head.bbox_head(bbox_feats)
+
+        rec_feats = self.feat_encoder(bbox_feats_x_i[:16].unsqueeze(0))  # [1, 256, 7, 7]
+        cur_feat = self.update_net(rec_feats, rec_feats.clone(), rec_feats.clone())
+        return outs
