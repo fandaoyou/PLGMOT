@@ -1,3 +1,3 @@
-A Pytorch Implementation of Prototype Learning based Generic Multiple Object Tracking
+# Prototype Learning Based Generic Multiple Object Tracking via Point-to-Box Supervision
 
 ![](framework.png)
