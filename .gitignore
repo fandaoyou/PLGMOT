@@ -12,6 +12,3 @@
 data/
 work_dirs/
 track_results/
-sort.py
-train.py
-run_code/
