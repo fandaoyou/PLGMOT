@@ -1,8 +1,8 @@
-A Pytorch Implementation of Prototype Learning based Generic Multiple Object Tracking
+A Pytorch Implementation of Prototype Learning based Generic Multiple Object Tracking via Point-to-Box Supervision
 
 ![](./framework.png)
 
-## Installation
+# Installation
 
 ```
 conda create -n PLGMOT
@@ -17,7 +17,7 @@ pip install -v -e .
 pip install -r requirments.txt
 ```
 
-## Data preparation
+# Data preparation
 
 The FSC147 and GMOT40 datasets can be downloaded from [FSC147](https://github.com/cvlab-stonybrook/LearningToCountEverything) and [GMOT40](https://spritea.github.io/GMOT40/download.html).
 After downloading, you should prepare the data in the following structure:
@@ -43,7 +43,7 @@ Generate initial pseudo bounding boxes:
 python ./tools/gen_pseudo_label.py
 ```
 
-## Train
+# Train
 
 To train PLGMOT on FSC(with 3270 images):
 
@@ -57,11 +57,10 @@ To train PLGMOT on FSC+(with 5588 images):
 python train.py --config configs/plgmot_fsc+.py --work-dir ./work_dirs/plgmot_fsc+
 ```
 
-## Evaluation
+# Evaluation
 
 Run detect.py and hmaa_track.py to get the detection and tracking results.
 
-e.g.
 
 ```
 python detect.py --exp_id plgmot_fsc --config work_dirs/plgmot_fsc/plgmot_fsc.py --checkpoint work_dirs/plgmot_fsc/latest.pth
@@ -73,3 +72,33 @@ The results will be saved in `./work_dirs/{exp_id}/det` and `./track_results/{ex
 Run `python ./tools/show_metric.py` to print the metrics.
 
 Or you can just run `sh ./run_code/plgmot_fsc.sh`.
+
+# Checkpoints
+
+<!-- insert a table -->
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th>Data</th>
+      <th>Images</th>
+      <th>Checkpoint</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>fsc</td>
+      <td>3659</td>
+      <td><a href="https://pan.baidu.com/s/1FfMF70DEUo3q2XO-rGh7BA?pwd=xxgn">BaiDuYun link</a></a></td>
+    </tr>
+  </tbody>
+  <tbody>
+    <tr>
+      <th>2</th>
+      <td>fsc+</td>
+      <td>5588</td>
+      <td><a href="https://pan.baidu.com/s/1KtmvcN0M9q6lK98oLI89xA?pwd=yapq">BaiDuYun link</a></a></td>
+    </tr>
+  </tbody>
+</table>
